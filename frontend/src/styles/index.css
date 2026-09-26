@@ -1,0 +1,214 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0e0c0a;
+  --color-surface: #17140f;
+  --color-surface-2: #211c15;
+  --color-surface-3: #2b2419;
+
+  --color-brass: #c9a25a;
+  --color-brass-light: #e6c98a;
+  --color-brass-dark: #8a6a32;
+
+  --color-parchment: #ece3cf;
+  --color-parchment-muted: #a89d88;
+
+  --color-soul: #5fe0c0;
+
+  --color-weapon: #e0892e;
+  --color-vitality: #6fbf3f;
+  --color-spirit: #a26ee8;
+
+  --color-win: #6fbf3f;
+  --color-loss: #d1493f;
+
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+
+  --ease-brass: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-ink);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgb(201 162 90 / 0.09), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgb(95 224 192 / 0.04), transparent 70%);
+    background-attachment: fixed;
+    color: var(--color-parchment);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Зерно старой бумаги поверх всего — SVG-шум, без картинок. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-soul);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgb(201 162 90 / 0.35);
+    color: var(--color-parchment);
+  }
+
+  img {
+    color: transparent;
+  }
+}
+
+/* Табличные цифры для любой статистики. */
+@utility nums {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Заголовки-афиши: узкий гротеск капсом с трекингом. */
+@utility poster {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* Срезанные углы ар-деко. */
+@utility cut {
+  clip-path: polygon(
+    var(--cut, 12px) 0,
+    calc(100% - var(--cut, 12px)) 0,
+    100% var(--cut, 12px),
+    100% calc(100% - var(--cut, 12px)),
+    calc(100% - var(--cut, 12px)) 100%,
+    var(--cut, 12px) 100%,
+    0 calc(100% - var(--cut, 12px)),
+    0 var(--cut, 12px)
+  );
+}
+
+@utility cut-sm {
+  --cut: 6px;
+}
+
+@layer components {
+  /*
+   * Рамка ар-деко: латунная граница со срезанными углами + внутренняя
+   * тонкая линия. Внешний слой — латунь, ::before — заливка поверхности.
+   */
+  .frame {
+    --cut: 14px;
+    --frame-fill: var(--color-surface);
+    --frame-line: rgb(201 162 90 / 0.55);
+    position: relative;
+    isolation: isolate;
+    background: var(--frame-line);
+    clip-path: polygon(
+      var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+      100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+      var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+    );
+  }
+
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    background: var(--frame-fill);
+    clip-path: polygon(
+      var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+      100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+      var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+    );
+  }
+
+  .frame::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    z-index: -1;
+    pointer-events: none;
+    border: 1px solid rgb(201 162 90 / 0.14);
+    clip-path: inherit;
+  }
+
+  .frame-quiet {
+    --frame-line: rgb(201 162 90 / 0.22);
+  }
+
+  .frame-quiet::after {
+    display: none;
+  }
+
+  /* Ромб-разделитель с двойными линиями. */
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-brass-dark);
+  }
+
+  .rule::before,
+  .rule::after {
+    content: '';
+    flex: 1;
+    height: 5px;
+    border-block: 1px solid currentColor;
+    opacity: 0.7;
+  }
+
+  .soul-glow {
+    color: var(--color-soul);
+    text-shadow: 0 0 12px rgb(95 224 192 / 0.55);
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      100deg,
+      var(--color-surface-2) 30%,
+      var(--color-surface-3) 50%,
+      var(--color-surface-2) 70%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

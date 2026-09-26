@@ -1,0 +1,672 @@
+{
+ "passive": {
+  "id": 2064029594,
+  "name": "Вскрывающие патроны",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "BonusBulletSpeedPercent",
+       "BaseAttackDamagePercent",
+       "TechPower"
+      ],
+      "elevated_properties": []
+     }
+    ]
+   },
+   {
+    "section_type": "passive",
+    "section_attributes": [
+     {
+      "loc_string": "Повышает <span class=\"highlight\">урон от оружия</span>, наносимый врагам, у которых <span class=\"highlight\">больше 50% здоровья</span>.",
+      "important_properties": [
+       "BaseAttackDamagePercentBonus"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "0",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "0",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "TechPower": {
+    "value": "7",
+    "disable_value": "0",
+    "prefix": "{s:sign}",
+    "label": "Спиритическая мощь",
+    "postfix": ""
+   },
+   "BonusBulletSpeedPercent": {
+    "value": "60",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Скорость пуль",
+    "postfix": "%"
+   },
+   "BaseAttackDamagePercent": {
+    "value": "8",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Урон от оружия",
+    "postfix": "%"
+   },
+   "BaseAttackDamagePercentBonus": {
+    "value": "25",
+    "css_class": "bullet_damage",
+    "prefix": "+",
+    "label": "Урон от оружия",
+    "postfix": "%"
+   }
+  }
+ },
+ "fervor": {
+  "id": 339443430,
+  "name": "Ярость",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "BonusHealth",
+       "BonusFireRate",
+       "BulletLifestealPercent"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "passive",
+    "section_attributes": [
+     {
+      "loc_string": "Когда у вас <span class=\"highlight\">меньше 50% здоровья</span>, вы на указанный период получаете бонусы к характеристикам, а наложенные на вас отрицательные эффекты ослабляются.",
+      "properties": [
+       "AbilityCooldown",
+       "AbilityDuration"
+      ],
+      "important_properties": [
+       "FervorMovespeed",
+       "FervorFireRate",
+       "FervorStatusResistancePercent"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "16",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "10",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "BonusHealth": {
+    "value": "160",
+    "css_class": "health",
+    "prefix": "{s:sign}",
+    "label": "Бонус к здоровью"
+   },
+   "BonusFireRate": {
+    "value": "15",
+    "prefix": "{s:sign}",
+    "label": "Скорострельность",
+    "postfix": "%"
+   },
+   "BulletLifestealPercent": {
+    "value": "10",
+    "css_class": "healing",
+    "prefix": "{s:sign}",
+    "label": "Кража здоровья пулями",
+    "postfix": "%"
+   },
+   "FervorMovespeed": {
+    "value": "4m",
+    "css_class": "move_speed",
+    "label": "Скорость передвижения",
+    "postfix": " м/с"
+   },
+   "FervorFireRate": {
+    "value": "40",
+    "css_class": "fire_rate",
+    "label": "Скорострельность",
+    "postfix": "%"
+   },
+   "FervorStatusResistancePercent": {
+    "value": "40",
+    "css_class": "duration",
+    "prefix": "{s:sign}",
+    "label": "Сопр. отриц. эффектам",
+    "postfix": "%"
+   }
+  }
+ },
+ "active": {
+  "id": 709540378,
+  "name": "Жертвенный ритуал",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "OutOfCombatHealthRegen",
+       "NonPlayerBonusWeaponPower",
+       "NonPlayerBulletResist"
+      ],
+      "elevated_properties": []
+     }
+    ]
+   },
+   {
+    "section_type": "active",
+    "section_attributes": [
+     {
+      "loc_string": "Вы поглощаете выбранное существо, не являющееся героем, получая <span class=\"highlight\">бонусные души в размере 170%</span> и мощный долгосрочный положительный эффект.",
+      "properties": [
+       "AbilityCooldown",
+       "AbilityDuration"
+      ],
+      "important_properties": [
+       "BaseAttackDamagePercent",
+       "BonusHealth",
+       "TechRangeMultiplier"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "270",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "160",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "NonPlayerBonusWeaponPower": {
+    "value": "30",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Урон от оружия по всем, кроме героев",
+    "postfix": "%",
+    "conditional": "по всем, кроме героев"
+   },
+   "OutOfCombatHealthRegen": {
+    "value": "2",
+    "css_class": "healing",
+    "prefix": "{s:sign}",
+    "label": "Восстановление вне боя",
+    "postfix": ""
+   },
+   "NonPlayerBulletResist": {
+    "value": "30",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Сопротивляемость пулям (ото всех, кроме героев)",
+    "postfix": "%",
+    "conditional": "по всем, кроме героев"
+   },
+   "BonusHealth": {
+    "value": "50",
+    "css_class": "health",
+    "prefix": "{s:sign}",
+    "label": "Бонус к здоровью"
+   },
+   "BaseAttackDamagePercent": {
+    "value": "10",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Урон от оружия",
+    "postfix": "%"
+   },
+   "TechRangeMultiplier": {
+    "value": "12",
+    "css_class": "distance",
+    "prefix": "{s:sign}",
+    "label": "к дальности умений",
+    "postfix": "%"
+   }
+  }
+ },
+ "untyped": {
+  "id": 1414319208,
+  "name": "Берсерк",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "BulletResist"
+      ]
+     }
+    ]
+   },
+   {
+    "section_attributes": [
+     {
+      "loc_string": "Повышает наносимый <span class=\"highlight\">урон от оружия</span>, когда вы получаете урон на протяжении долгого времени.",
+      "properties": [
+       "DamageToStack",
+       "MaxStacks",
+       "DamageDuration"
+      ],
+      "important_properties": [
+       "WeaponPowerPerStack"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "0",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "0",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "DamageDuration": {
+    "value": "10",
+    "css_class": "duration",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "DamageToStack": {
+    "value": "120",
+    "css_class": "bullet_armor_up",
+    "label": "Полученный урон в ед. эффекта"
+   },
+   "WeaponPowerPerStack": {
+    "value": "7",
+    "css_class": "bullet_damage",
+    "prefix": "{s:sign}",
+    "label": "Урон от оружия за ед. эффекта",
+    "postfix": "%"
+   },
+   "MaxStacks": {
+    "value": 10.0,
+    "label": "Максимум ед. эффекта"
+   },
+   "BulletResist": {
+    "value": "8",
+    "css_class": "bullet_armor_up",
+    "prefix": "{s:sign}",
+    "label": "Сопр. пулям",
+    "postfix": "%"
+   }
+  }
+ },
+ "inline": {
+  "id": 710436191,
+  "name": "Конденсатор",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "elevated_properties": [
+       "BonusFireRate"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "passive",
+    "section_attributes": [
+     {
+      "loc_string": "У ваших выстрелов есть шанс поразить цель <span class=\"highlight\">электричеством</span>. <span class=\"highlight\">Электрический заряд</span> также отскочит на ближайшего к цели врага.",
+      "properties": [
+       "ProcCooldown",
+       "ChainCount",
+       "ChainRadius"
+      ],
+      "important_properties": [
+       "DamagePerChain",
+       "ProcChance"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "active",
+    "section_attributes": [
+     {
+      "loc_string": "Вы выпускаете снаряд, наносящий <span class=\"highlight\"><svg width=\"128\" height=\"128\" viewBox=\"0 0 128 128\" fill=\"white\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M53.7875 20.0238C48.6533 13.3022 40.8042 9 32.0027 9C16.5345 9 4 22.2789 4 38.6558C4 38.7707 4.00052 38.8854 4.00155 39H91.8416L94.7229 33.1618C97.2906 27.9591 104.71 27.9591 107.277 33.1618L110.159 39H115.998C115.999 38.8854 116 38.7707 116 38.6558C116 22.2789 103.466 9 87.9973 9C79.1958 9 71.3467 13.3022 66.2125 20.0238C65.7565 20.6214 65.336 21.1783 64.9462 21.6946C62.4734 24.9699 61.2367 26.6078 59.9993 26.6084C58.7614 26.609 57.5227 24.9711 55.0449 21.6946C54.6545 21.1783 54.2333 20.6214 53.7766 20.0238H53.7875Z\" fill=\"white\"/>\n<path d=\"M79.7015 79L79.5588 79.8323C78.7516 84.5386 82.6742 88.3253 86.9508 88.0132C86.8571 88.1111 86.7634 88.209 86.6696 88.3069C78.1991 97.1552 69.4174 106.328 62.6218 116.742C61.1111 119.051 58.8889 119.051 57.3782 116.742C50.5788 106.325 41.7966 97.1509 33.3264 88.303C30.3317 85.1748 27.3761 82.0873 24.5608 79H79.7015Z\" fill=\"white\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M101.901 35.5496C101.512 34.8168 100.488 34.8168 100.099 35.5497L93.0406 48.845C92.8929 49.123 92.6315 49.3183 92.3283 49.3766L77.8385 52.1641C77.0398 52.3178 76.7233 53.3185 77.2815 53.9252L87.4091 64.9295C87.6209 65.1597 87.7208 65.4756 87.6812 65.7898L85.7842 80.8078C85.6796 81.6357 86.5083 82.2542 87.2424 81.8963L100.56 75.402C100.838 75.2662 101.162 75.2662 101.44 75.402L114.758 81.8963C115.492 82.2542 116.32 81.6357 116.216 80.8078L114.319 65.7898C114.279 65.4756 114.379 65.1597 114.591 64.9295L124.718 53.9252C125.277 53.3185 124.96 52.3178 124.161 52.1641L109.672 49.3766C109.369 49.3183 109.107 49.123 108.959 48.845L101.901 35.5496ZM100.036 43.0789C100.366 42.1579 101.634 42.1579 101.964 43.0789L105.019 51.6179C105.01 51.6983 105.017 51.7822 105.041 51.8662L107.687 61.1634C107.817 61.6217 108.371 61.7807 108.714 61.4584L111.336 58.9947C111.498 58.8428 111.571 58.6153 111.528 58.3944L110.687 53.9877H117.422C118.389 53.9877 118.82 55.2373 118.067 55.8622L110.702 61.9792C110.601 61.9949 110.502 62.0365 110.413 62.1066L102.948 68.0247C102.581 68.3164 102.638 68.9036 103.055 69.1143L106.244 70.7259C106.44 70.8252 106.673 70.8121 106.858 70.6913L110.254 68.4723L112.085 75.0776C112.35 76.0329 111.299 76.8003 110.508 76.2296L101.591 69.8003C101.471 69.7136 101.337 69.6563 101.199 69.6285L95.0376 65.3393C94.6474 65.0677 94.116 65.3179 94.0614 65.7987L93.6534 69.3978C93.6281 69.6213 93.718 69.8423 93.8907 69.9808L96.868 72.3692L91.5448 76.2279C90.7554 76.8001 89.7037 76.0372 89.9645 75.0816L92.6557 65.2197C92.6717 65.1902 92.6845 65.1581 92.6935 65.1237L95.058 56.0862C95.1347 55.7934 94.8946 55.5156 94.6024 55.5592L90.6768 56.1448C90.5236 56.1678 90.3959 56.2773 90.3466 56.428L89.0988 60.2424L83.9931 56.1163C83.2355 55.5041 83.6428 54.2537 84.6065 54.2331L94.8405 54.0152C94.8711 54.0191 94.9023 54.0206 94.934 54.0198L103.141 53.8011C103.588 53.7892 103.88 53.3157 103.7 52.8958L102.212 49.4285C102.111 49.1944 101.886 49.0435 101.637 49.0435H97.9024L100.036 43.0789Z\" fill=\"white\"/>\n<path d=\"M67 57C68.1046 57 69 57.8954 69 59C69 60.1046 68.1046 61 67 61H7C5.89543 61 5 60.1046 5 59C5 57.8954 5.89543 57 7 57H67Z\" fill=\"white\"/>\n</svg>\nурон</span> и накладывающий сильное замедление, которое постепенно развеивается. Цель также <span class=\"highlight\">не может использовать выносливость</span>, а на её <span class=\"highlight\">предметы и умения, связанные с движением</span>, накладывается <span class=\"highlight\">безмолвие</span>.",
+      "properties": [
+       "AbilityCooldown",
+       "SlowDuration"
+      ],
+      "important_properties": [
+       "Damage",
+       "MaxSlowPercent"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "40",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "0",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "ProcCooldown": {
+    "value": "0.2",
+    "css_class": "cooldown",
+    "label": "Мин. интервал срабатывания",
+    "postfix": " с."
+   },
+   "DamagePerChain": {
+    "value": "43",
+    "css_class": "tech_damage",
+    "label": "Урон от электричества"
+   },
+   "ChainRadius": {
+    "value": "10m",
+    "css_class": "distance",
+    "label": "Радиус отскока",
+    "postfix": " м"
+   },
+   "ProcChance": {
+    "value": "20",
+    "label": "Шанс срабатывания",
+    "postfix": "%"
+   },
+   "ChainCount": {
+    "value": "6",
+    "label": "Макс. отскоков"
+   },
+   "Damage": {
+    "value": "100",
+    "css_class": "tech_damage",
+    "label": "Урон"
+   },
+   "MaxSlowPercent": {
+    "value": "60",
+    "css_class": "slow",
+    "prefix": "-",
+    "label": "Макс. скорость передвижения",
+    "postfix": "%"
+   },
+   "SlowDuration": {
+    "value": "3",
+    "css_class": "duration",
+    "label": "Длительность замедления",
+    "postfix": " с."
+   },
+   "BonusFireRate": {
+    "value": "5",
+    "css_class": "fire_rate",
+    "prefix": "{s:sign}",
+    "label": "Скорострельность",
+    "postfix": "%"
+   }
+  }
+ },
+ "diminish": {
+  "id": 1437614329,
+  "name": "Ударная кража здоровья",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [],
+      "elevated_properties": [
+       "BonusMeleeDamagePercent"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "passive",
+    "section_attributes": [
+     {
+      "loc_string": "Ваша следующая атака <span class=\"highlight\">ближнего боя</span> <span class=\"highlight\">лечит вас</span>. <span class=\"diminish\"><br><br>Лечение от существ, не являющихся героями, эффективно на 30%. <br>Множитель времени перезарядки составляет 1.5 при нанесении лёгких ударов ближнего боя.</span>",
+      "properties": [
+       "AbilityCooldown"
+      ],
+      "important_properties": [
+       "LifestrikeHeal"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": "8",
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "0",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "BonusMeleeDamagePercent": {
+    "value": "12",
+    "css_class": "melee_damage",
+    "prefix": "{s:sign}",
+    "label": "Урон в ближнем бою",
+    "postfix": "%"
+   },
+   "LifestrikeHeal": {
+    "value": "100",
+    "css_class": "healing",
+    "label": "Лечение при попадании в ближнем бою"
+   }
+  }
+ },
+ "status": {
+  "id": 619484391,
+  "name": "Волна безмолвия",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "BonusHealth"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "active",
+    "section_attributes": [
+     {
+      "loc_string": "Вы выпускаете расширяющийся снаряд, который ненадолго накладывает на врагов <span class=\"highlight\">безмолвие</span> и наносит урон при попадании. <br><br><span class=\"diminish\">Безмолвие не прерывает подготавливаемые умения.</span>",
+      "properties": [
+       "AbilityCastRange",
+       "AbilityDuration",
+       "AbilityCooldown"
+      ],
+      "important_properties": [
+       "StatusEffectEMP",
+       "Damage"
+      ],
+      "important_properties_with_icon": [
+       {
+        "name": "StatusEffectEMP",
+        "icon": "https://assets-bucket.deadlock-api.com/assets-api-res/icons/condition_silence.svg",
+        "localized_name": "Безмолвие"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": 42.0,
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "3",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность безмолвия",
+    "postfix": " с."
+   },
+   "AbilityCastRange": {
+    "value": "40m",
+    "css_class": "range",
+    "label": "Дальность применения",
+    "postfix": " м"
+   },
+   "BonusHealth": {
+    "value": "50",
+    "css_class": "health",
+    "prefix": "{s:sign}",
+    "label": "Бонус к здоровью"
+   },
+   "Damage": {
+    "value": "75",
+    "css_class": "tech_damage",
+    "label": "Урон"
+   }
+  }
+ },
+ "rusty": {
+  "id": 2922054143,
+  "name": "Ржавый ствол",
+  "tooltip_sections": [
+   {
+    "section_type": "innate",
+    "section_attributes": [
+     {
+      "properties": [
+       "BonusHealth",
+       "BonusSprintSpeed"
+      ]
+     }
+    ]
+   },
+   {
+    "section_type": "active",
+    "section_attributes": [
+     {
+      "loc_string": "У выбранной цели снижаются <span class=\"highlight\">скорострельность</span> и <span class=\"highlight\">сопротивляемость пулям</span>.",
+      "properties": [
+       "AbilityCastRange",
+       "AbilityDuration",
+       "AbilityCooldown"
+      ],
+      "important_properties": [
+       "Damage",
+       "FireRateSlow",
+       "BulletArmorReduction"
+      ]
+     }
+    ]
+   }
+  ],
+  "properties": {
+   "AbilityCooldown": {
+    "value": 16.0,
+    "css_class": "cooldown",
+    "disable_value": "0",
+    "label": "Перезарядка",
+    "postfix": " с."
+   },
+   "AbilityDuration": {
+    "value": "5",
+    "css_class": "duration",
+    "disable_value": "0",
+    "label": "Длительность",
+    "postfix": " с."
+   },
+   "AbilityCastRange": {
+    "value": "32m",
+    "css_class": "range",
+    "label": "Дальность применения",
+    "postfix": " м"
+   },
+   "Damage": {
+    "css_class": "tech_damage",
+    "label": "Урон"
+   },
+   "FireRateSlow": {
+    "value": "32",
+    "css_class": "fire_rate",
+    "prefix": "-",
+    "label": "Скорострельность",
+    "postfix": "%"
+   },
+   "BonusHealth": {
+    "value": "60",
+    "css_class": "health",
+    "prefix": "{s:sign}",
+    "label": "Бонус к здоровью"
+   },
+   "BonusSprintSpeed": {
+    "value": "0.5m",
+    "css_class": "move_speed",
+    "prefix": "{s:sign}",
+    "label": "Скорость бега",
+    "postfix": " м/c"
+   },
+   "BulletArmorReduction": {
+    "value": "-8",
+    "css_class": "bullet_armor_down",
+    "prefix": "{s:sign}",
+    "label": "Сопротивляемость пулям",
+    "postfix": "%"
+   }
+  }
+ }
+}
