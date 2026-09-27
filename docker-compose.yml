@@ -1,4 +1,38 @@
 services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./backend/.env
+    environment:
+      PORT: 3000
+      FRONTEND_URL: http://localhost
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      DB_NAME: ${DB_NAME:-main_db}
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-main_db}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-supersecret}
+    ports:
+      - "3000:3000"
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
   postgres:
     image: postgres:16-alpine
     restart: always
@@ -7,7 +41,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
       POSTGRES_DB: ${DB_NAME:-main_db}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_main:/var/lib/postgresql/data
   

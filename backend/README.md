@@ -11,7 +11,7 @@ REST API на NestJS 11. Он синхронизирует героев и пр�
 
 ## Запуск
 
-Нужны Node.js 22+, pnpm, а также запущенные PostgreSQL и Redis. Их проще поднять из корня репозитория командой `docker compose up -d`.
+Нужны Node.js 22+, pnpm, а также запущенные PostgreSQL и Redis. Их проще поднять из корня репозитория командой `docker compose up -d postgres redis`. PostgreSQL будет доступен на `localhost:5433`.
 
 ```bash
 pnpm install
@@ -25,11 +25,17 @@ pnpm start:dev
 
 > Конфиг Prisma называется `prisma7.config.ts`, а не `prisma.config.ts`, поэтому любой команде Prisma CLI нужен флаг `--config prisma7.config.ts`.
 
+### Docker
+
+`Dockerfile` собирает образ в две стадии: в первой ставит зависимости, генерирует Prisma Client и выполняет `nest build`, во второй остаются только `dist/`, `node_modules/` и `prisma/`. При старте контейнер применяет миграции и запускает `node dist/main.js`. Локальные `node_modules`, `dist` и `.env` в образ не попадают (см. `.dockerignore`).
+
+Запускать образ удобнее через `docker-compose.yml` в корне: он передаёт `DATABASE_URL` с хостом `postgres` и `REDIS_URL` с хостом `redis`. Подробнее в [корневом README](../README.md#запуск-в-docker).
+
 ### Переменные окружения
 
 | Переменная     | Обязательна | Описание |
 |----------------|:-----------:|----------|
-| `DATABASE_URL` | да  | Строка подключения к PostgreSQL, например `postgresql://postgres:password@localhost:5432/deadlock_db` |
+| `DATABASE_URL` | да  | Строка подключения к PostgreSQL, например `postgresql://postgres:password@localhost:5433/deadlock_db` |
 | `JWT_SECRET`   | да  | Секрет для подписи JWT; сгенерируйте через `openssl rand -hex 32` |
 | `REDIS_URL`    | да  | Адрес Redis, например `redis://localhost:6379` |
 | `CORS_ORIGIN`  | нет | Разрешённые origin через запятую, по умолчанию `http://localhost:5173` |

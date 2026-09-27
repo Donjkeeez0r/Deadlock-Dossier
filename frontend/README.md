@@ -38,6 +38,12 @@ VITE_API_URL=https://api.example.com pnpm build
 
 В этом случае origin фронтенда нужно добавить в `CORS_ORIGIN` на бэкенде.
 
+### Docker
+
+`Dockerfile` собирает приложение (`pnpm build`) и кладёт `dist/` в образ `nginx:stable-alpine`. Конфиг `nginx.conf` повторяет поведение dev-сервера: запросы на `/backend/*` проксируются на `http://backend:3000` с отрезанным префиксом, а все остальные пути отдают `index.html`, чтобы работал клиентский роутинг. Поэтому `VITE_API_URL` в Docker задавать не нужно, и CORS не участвует: фронтенд и API открываются с одного origin, `http://localhost`.
+
+Если меняете префикс в `src/api/client.ts` или `vite.config.ts`, поменяйте и `location /backend/` в `nginx.conf`.
+
 ## Страницы
 
 | Путь | Страница |

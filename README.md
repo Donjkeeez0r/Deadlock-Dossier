@@ -18,7 +18,7 @@
 .
 ├── backend/             # REST API на NestJS: Prisma + PostgreSQL, Redis, BullMQ
 ├── frontend/            # SPA на React 19 + Vite + Tailwind CSS 4
-└── docker-compose.yml   # PostgreSQL 16 и Redis для локальной разработки
+└── docker-compose.yml   # весь стек в Docker: frontend (nginx), backend, PostgreSQL 16, Redis
 ```
 
 Подробности в [backend/README.md](backend/README.md) и [frontend/README.md](frontend/README.md).
@@ -42,13 +42,32 @@
 - Аналитику (контрпики, синергию, матчапы, статистику предметов) бэкенд запрашивает у Deadlock API и кэширует в Redis на 2 часа.
 - Авторизация построена на JWT, который живёт сутки. Фронтенд хранит сессию в `localStorage`.
 
-## Быстрый старт
+## Запуск в Docker
+
+Понадобится только Docker. В `backend/` должен лежать файл `.env` (`cp backend/.env.example backend/.env`): compose подключает его целиком, но `DATABASE_URL`, `REDIS_URL` и `JWT_SECRET` переопределяет своими значениями.
+
+```bash
+docker compose up -d --build
+```
+
+| Сервис     | Адрес на хосте | Что внутри |
+|------------|----------------|------------|
+| `frontend` | http://localhost | nginx раздаёт собранный SPA и проксирует `/backend/*` на `backend:3000`, отрезая префикс |
+| `backend`  | http://localhost:3000 | NestJS; при старте применяет миграции (`prisma migrate deploy`) |
+| `postgres` | `localhost:5433` | PostgreSQL 16, данные в томе `postgres_main` |
+| `redis`    | `localhost:6379` | Redis |
+
+PostgreSQL проброшен на порт **5433**, а не 5432, чтобы не конфликтовать с другими локальными базами. Внутри сети Docker backend подключается к нему как `postgres:5432`.
+
+Параметры базы и `JWT_SECRET` можно задать в файле `.env` в корне репозитория: `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `JWT_SECRET`. Без него используются значения по умолчанию из `docker-compose.yml` (`postgres` / `password` / `main_db`, `supersecret`). Для чего-то кроме локальной проверки задайте свой `JWT_SECRET`.
+
+## Разработка
 
 Понадобятся Node.js 22+, [pnpm](https://pnpm.io) и Docker.
 
 ```bash
-# 1. PostgreSQL и Redis
-docker compose up -d
+# 1. Только PostgreSQL и Redis (контейнер backend занял бы порт 3000)
+docker compose up -d postgres redis
 
 # 2. Бэкенд
 cd backend
@@ -66,7 +85,7 @@ pnpm dev                        # http://localhost:5173
 
 При первом запуске бэкенд сам ставит в очередь синхронизацию героев и предметов. Пока она не закончится (обычно несколько секунд), списки на фронтенде будут пустыми.
 
-> **Имя базы.** `docker-compose.yml` по умолчанию создаёт базу `main_db`, а в `.env.example` указана `deadlock_db`. Проще всего положить в корень репозитория файл `.env` со строкой `DB_NAME=deadlock_db` до первого `docker compose up`. Другой вариант — поправить `DATABASE_URL`.
+> **Имя базы.** `docker-compose.yml` по умолчанию создаёт базу `main_db`, а в `backend/.env.example` указана `deadlock_db` на `localhost:5433`. Проще всего положить в корень репозитория файл `.env` со строкой `DB_NAME=deadlock_db` до первого `docker compose up`. Другой вариант — поправить `DATABASE_URL`.
 
 ## Технологии
 
