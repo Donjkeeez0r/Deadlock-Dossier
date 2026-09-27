@@ -1,78 +1,98 @@
-# React + TypeScript + Vite
+# Досье — фронтенд
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Одностраничное приложение на React 19 и Vite: контрпики, матчапы на линии, конструктор, сравнение и сохранение сборок Deadlock. Данные приходят с [бэкенда](../backend/README.md).
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** с **React Compiler** (через `@rolldown/plugin-babel`), **TypeScript**
+- **Vite 8**, **Tailwind CSS 4** (`@tailwindcss/vite`)
+- **TanStack Query 5**: запросы и кэш
+- **React Router**: маршрутизация, разделы грузятся лениво
+- **Motion**: анимации (учитывают `prefers-reduced-motion`)
 
-## React Compiler
+## Запуск
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Нужны Node.js 22+ и pnpm. Бэкенд должен работать на `http://localhost:3000`.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
+pnpm dev        # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+| Команда        | Что делает |
+|----------------|------------|
+| `pnpm dev`     | Dev-сервер с HMR |
+| `pnpm build`   | Проверка типов (`tsc -b`) и сборка в `dist/` |
+| `pnpm preview` | Локальный просмотр собранной версии |
+| `pnpm lint`    | ESLint |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Адрес API
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+По умолчанию запросы идут на `/backend/*`. Dev-сервер Vite проксирует их на `http://localhost:3000`, отрезая префикс (см. `vite.config.ts`).
+
+Чтобы ходить на другой адрес, например в продакшене, задайте переменную при сборке:
+
+```bash
+VITE_API_URL=https://api.example.com pnpm build
+```
+
+В этом случае origin фронтенда нужно добавить в `CORS_ORIGIN` на бэкенде.
+
+## Страницы
+
+| Путь | Страница |
+|------|----------|
+| `/` | Главная: разделы и список героев |
+| `/counter` | Контрпик: лучшие герои против выбранного врага |
+| `/matchup` | Матчап на линии: винрейт пары, лучшие союзники и рекомендованные предметы |
+| `/builder` | Конструктор сборки (2–12 предметов), оценка и сохранение |
+| `/build/:shareId` | Просмотр сохранённой сборки по ссылке |
+| `/compare?a=&b=` | Сравнение двух сборок |
+| `/my-builds` | Мои сборки (только для вошедших) |
+| `/login`, `/register` | Вход и регистрация |
+| `*` | 404 |
+
+Сторона сравнения (`a` или `b`) задаётся одним из трёх форматов (`src/lib/compareSource.ts`):
+
+- `<uuid>` — сохранённая сборка;
+- `p:<heroId>` — популярная сборка героя;
+- `<heroId>:<id1>,<id2>,…` — произвольный набор предметов.
+
+## Структура
 
 ```
+src/
+├── main.tsx            # QueryClient, MotionConfig, RouterProvider
+├── routes.tsx          # маршруты; все разделы, кроме главной, — lazy-чанки
+├── api/
+│   ├── client.ts       # fetch-обёртка: токен, ApiError, русские сообщения об ошибках
+│   ├── endpoints.ts    # функции запросов и нормализация ответов бэкенда
+│   └── types.ts        # доменные типы
+├── hooks/queries.ts    # хуки TanStack Query
+├── components/         # общие компоненты: Layout, HeroPicker, ItemTile, ItemTooltip, WinrateGauge, Modal…
+├── features/           # страницы по разделам (home, counter, matchup, builder, build-view, compare, my-builds, auth)
+├── lib/
+│   ├── auth.ts         # сессия (JWT) и авто-выход по истечении
+│   ├── draft.ts        # черновик сборки, лимиты MIN_ITEMS / MAX_ITEMS
+│   ├── compareSource.ts
+│   ├── storage.ts      # безопасная работа с localStorage
+│   └── …
+└── styles/index.css    # тема Tailwind: цвета, шрифты, базовые стили
+```
+
+## Как устроено
+
+- **Сессия.** После входа JWT и email сохраняются в `localStorage` под ключом `dossier.session`. Выход происходит автоматически, когда истекает срок токена или бэкенд отвечает `401` на запрос с этим токеном. После выхода кэш запросов `['builds', …]` очищается.
+- **Черновик сборки** хранится в `localStorage` под ключом `dossier.draft` и синхронизируется между вкладками. Он общий для конструктора и кнопки «Добавить в сборку» на странице матчапа.
+- **Ошибки.** `ApiError` переводит ответы сервера в понятные сообщения на русском. Ошибки клиента (4xx) не повторяются, а сеть и 5xx повторяются один раз.
+- **Подсказки предметов** грузятся одним запросом `/assets/items/tooltips` и показываются при наведении мышью или фокусе с клавиатуры. На сенсорных экранах подсказок нет.
+
+## Дизайн
+
+Тёмная тема в духе старого досье: чернила, пергамент и латунь. Шрифты подключаются с Google Fonts:
+
+- **Oswald** — заголовки-афиши;
+- **Cormorant Garamond** — антиква для подзаголовков;
+- **IBM Plex Sans** — основной текст.
+
+Все три шрифта поддерживают кириллицу, и это обязательное условие при их замене. Фирменный элемент — латунный манометр винрейта (`WinrateGauge`) со шкалой 30–70%. Цвета заданы токенами в `@theme` в `src/styles/index.css`: категории предметов `weapon` / `vitality` / `spirit`, `win` / `loss` и другие.
